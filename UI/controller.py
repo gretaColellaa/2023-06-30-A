@@ -48,12 +48,27 @@ class Controller:
         for a in archi_ordinati:
             self._view.txt_result.controls.append(ft.Text(f"{a[0]}<-->{a[1]} - {a[2]['weight']}"))
 
-        self._view.update_page()
+        #self._view.update_page()
 
 
 
     def handle_simula(self, e):
-        pass
+        try: int(self._view.txtT.value)
+        except: self._view.create_alert("inserire un numero intero")
+        mapTifosi = self._model.simula(int(self._view.txtT.value))
+        giocatori_tifosi = {}
+
+        for t in mapTifosi.keys():
+            for gio in mapTifosi[t]:
+                if  gio in giocatori_tifosi.keys():
+                    giocatori_tifosi[mapTifosi[t]].append(t)
+                else:
+                    giocatori_tifosi[gio] = [t]
+        ordinato  = dict(sorted(giocatori_tifosi.items()))
+        for g in ordinato:
+            self._view.txtOut3.controls.append(ft.Text(f"{g} - ha {len(ordinato[g])} tifosi"))
+
+        self._view.update_page()
 
     def handle_ddyear(self, e):
 
