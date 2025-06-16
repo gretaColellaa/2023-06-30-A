@@ -34,15 +34,18 @@ class View(ft.UserControl):
         self._page.controls.append(self._title)
 
         #ROW with some controls
-        self.ddyear = ft.Dropdown(label="Anno")
-        self.ddcountry= ft.Dropdown(label="Nazione")
+        self.ddteam = ft.Dropdown(label="Team", on_change=self._controller.handle_ddyear)
+
+
 
         self.btn_graph = ft.ElevatedButton(text="Crea Grafo", on_click=self._controller.handle_graph)
 
-        row1 = ft.Row([self.ddyear, self.ddcountry, self.btn_graph],
+        row1 = ft.Row([self.ddteam, self.btn_graph],
                       alignment=ft.MainAxisAlignment.CENTER)
         self._page.controls.append(row1)
         self._controller.fillDD()
+
+        self.ddyear = ft.Dropdown(label="Anno")
 
         # List View where the reply is printed
         self.txt_result = ft.ListView(expand=0, spacing=5, padding=5, auto_scroll=True)
@@ -50,8 +53,8 @@ class View(ft.UserControl):
         self._page.update()
 
 
-        self.btn_volume = ft.ElevatedButton(text="Calcola Volumi", on_click=self._controller.handle_volume)
-        row2 = ft.Row([self.btn_volume],
+        self.btn_dettagli = ft.ElevatedButton(text="Dettagli", on_click=self._controller.handle_dettagli)
+        row2 = ft.Row([self.ddyear, self.btn_dettagli],
                       alignment=ft.MainAxisAlignment.CENTER)
         self._page.controls.append(row2)
 
@@ -59,10 +62,10 @@ class View(ft.UserControl):
         self._page.controls.append(self.txtOut2)
         self._page.update()
 
-        self.txtN = ft.TextField(label="Lunghezza percorso")
-        self.btn_path = ft.ElevatedButton(text="Calcola percorso", on_click=self._controller.handle_path)
+        self.txtT = ft.TextField(label="Tifosi")
+        self.btn_simula = ft.ElevatedButton(text="Simula tifosi", on_click=self._controller.handle_simula)
 
-        row3 = ft.Row([self.txtN, self.btn_path],
+        row3 = ft.Row([self.txtT, self.btn_simula],
                       alignment=ft.MainAxisAlignment.CENTER)
         self._page.controls.append(row3)
 
